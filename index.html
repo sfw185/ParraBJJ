@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Gracie Parramatta Timetable</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="images/icons/icon-512x512.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/icons/icon-192x192.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="images/icons/icon-192x192.png">
+    <style>
+      * { margin: 0; padding: 0 }
+      html, body { height: 100% }
+      body { background-color:  #091353 }
+      img { margin: auto; display: block; height: 256px; width: 256px; margin-top: 30px; margin-bottom: 30px; }
+      p {
+        margin: auto;
+        color: #091353;
+        font-size: 250%;
+        text-align: center;
+        padding: 10px 20px;
+        background-color: #FFF;
+        border-top: 1px solid #091353;
+        font-family: Helvetica, Arial , sans-serif;
+      }
+      em { font-style: normal; font-size: 120% }
+    </style>
+  </head>
+  <body>
+    <a href="">
+      <img src="images/icons/icon-512x512.png" alt="Gracie Parramatta" />
+    </a>
+    <div>
+      <p><strong>Loading...</strong></p>
+    </div>
+  </body>
+  <script type="text/javascript">
+    function formatDate(date) {
+      var hours = date.getHours();
+      var minutes = date.getMinutes();
+      var ampm = hours >= 12 ? 'pm' : 'am';
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+      minutes = minutes < 10 ? '0'+minutes : minutes;
+      var strTime = hours + ':' + minutes + ampm;
+      return strTime;
+    }
+
+    var request = new XMLHttpRequest();
+    var start = new Date();
+    start.setHours(0,0,0,0);
+
+    var end = new Date();
+    end.setHours(23,59,59,999);
+
+    var extra = "?start=" + String(Math.floor(start/1000)) + "&end=" + String(Math.floor(end/1000));
+    request.open("GET", "https://otbpujjwh8.execute-api.ap-southeast-2.amazonaws.com/default/gracieParra" + extra, true);
+    request.onreadystatechange = function () {
+      if (request.readyState != 4 || request.status != 200) return;
+      var schedule = JSON.parse(request.responseText)
+      // console.table(schedule);
+
+      var div = document.getElementsByTagName('div')[0];
+      var paragraphs = div.getElementsByTagName("p");
+      div.removeChild(paragraphs.item(0));
+
+      for (var x = 0; x < schedule.length; x++) {
+        var someClass = schedule[x];
+        var startTime = formatDate(new Date(someClass.start));
+        var p = document.createElement('p');
+        p.innerHTML = [
+          '<strong>' + startTime + '</strong>' + ' - ' + '<small>' + someClass.instructor_name.split(' ')[0] + '</small>',
+          '<strong><em>' + someClass.title.replace('-B', ' - B') + '</em></strong>'
+        ].join('<br/>');
+        div.appendChild(p);
+      }
+    };
+    request.send();
+  </script>
+</html>
