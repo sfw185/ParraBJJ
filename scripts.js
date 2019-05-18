@@ -1,4 +1,5 @@
 var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var schedule = {};
 
 function getStartTime() {
   var start = new Date();
@@ -8,7 +9,7 @@ function getStartTime() {
 
 function getEndTime() {
   var end = getStartTime()
-  end.setDate(end.getDate() + 7)
+  end.setDate(end.getDate() + 6)
   return end;
 }
 
@@ -25,10 +26,7 @@ function formatDate(date) {
 
 function groupByStartDay(schedule) {
   return schedule.reduce(function(aggregate, current) {
-    var dateBits = new Date(current["start"]).toLocaleDateString("en-AU", dateOptions).split(' ');
-    dateBits.pop();
-    var startDate = dateBits.join(' ');
-    console.log(startDate);
+    var startDate = new Date(current["start"]).toLocaleDateString("en-AU", dateOptions).split(',')[0];
     if (!aggregate[startDate]) { aggregate[startDate] = []; }
     aggregate[startDate].push(current);
     return aggregate;
@@ -39,17 +37,25 @@ function getContainer() {
   return document.getElementsByTagName('div')[0];
 }
 
-function processSchedule(schedule) {
+function getHeader() {
+  return document.getElementsByTagName('h1')[0];
+}
+
+function processSchedule(unparsedSchedule) {
   var div = getContainer()
   div.innerHTML = "";
 
-  var scheduleByDay = groupByStartDay(schedule)
-  var header = document.createElement('h1');
-  header.innerHTML = Object.keys(scheduleByDay)[0]
+  schedule = groupByStartDay(unparsedSchedule)
+  var header = getHeader()
+  var todayIndex = Object.keys(schedule)[0];
+  var todaySchedule = schedule[todayIndex];
+  header.innerHTML = todayIndex;
   div.appendChild(header);
 
-  for (var x = 0; x < schedule.length; x++) {
-    var someClass = schedule[x];
+  console.log(schedule);
+
+  for (var x = 0; x < todaySchedule.length; x++) {
+    var someClass = todaySchedule[x];
     var startTime = formatDate(new Date(someClass.start));
     var p = document.createElement('p');
     p.innerHTML = [
@@ -61,8 +67,8 @@ function processSchedule(schedule) {
 }
 
 function getSchedule() {
-  var div = getContainer();
-  div.innerHTML = "<p><strong>Loading...</strong></p>";
+  var header = getHeader();
+  header.innerText = "Loading...";
 
   var request = new XMLHttpRequest();
   var extra = "?start=" + String(Math.floor(getStartTime()/1000)) + "&end=" + String(Math.floor(getEndTime()/1000));
