@@ -10,9 +10,18 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body onload="getSchedule();">
-    <a onclick="getSchedule();">
+    <a href="index.html">
       <img src="images/icons/icon-512x512.png" alt="Gracie Parramatta" />
     </a>
+    <nav>
+      <a href="#" onclick="setScheduleDay('Monday');">M</a>
+      <a href="#" onclick="setScheduleDay('Tuesday');">T</a>
+      <a href="#" onclick="setScheduleDay('Wednesday');">W</a>
+      <a href="#" onclick="setScheduleDay('Thursday');">T</a>
+      <a href="#" onclick="setScheduleDay('Friday');">F</a>
+      <a href="#" onclick="setScheduleDay('Saturday');">S</a>
+      <a href="#" onclick="setScheduleDay('Sunday');">S</a>
+    </nav>
     <h1></h1>
     <div>
       <!-- Hello friend -->

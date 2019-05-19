@@ -1,5 +1,14 @@
 var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-var schedule = {};
+
+var schedule = {
+  Monday:  [],
+  Tuesday: [],
+  Wednesday: [],
+  Thursday: [],
+  Friday: [],
+  Saturday: [],
+  Sunday: [],
+};
 
 function getStartTime() {
   var start = new Date();
@@ -33,26 +42,30 @@ function groupByStartDay(schedule) {
   }, {});
 }
 
-function getContainer() {
-  return document.getElementsByTagName('div')[0];
+function getSoleElementByTagName(tag_name) {
+  return document.getElementsByTagName(tag_name)[0];
 }
 
 function getHeader() {
-  return document.getElementsByTagName('h1')[0];
+  return getSoleElementByTagName('h1');
 }
 
-function processSchedule(unparsedSchedule) {
+function getContainer() {
+  return getSoleElementByTagName('div');
+}
+
+function getNav() {
+  return getSoleElementByTagName('nav');
+}
+
+function setScheduleDay(dayIndex) {
+  var header = getHeader()
+  header.innerText = dayIndex;
+
   var div = getContainer()
   div.innerHTML = "";
 
-  schedule = groupByStartDay(unparsedSchedule)
-  var header = getHeader()
-  var todayIndex = Object.keys(schedule)[0];
-  var todaySchedule = schedule[todayIndex];
-  header.innerHTML = todayIndex;
-  div.appendChild(header);
-
-  console.log(schedule);
+  var todaySchedule = schedule[dayIndex];
 
   for (var x = 0; x < todaySchedule.length; x++) {
     var someClass = todaySchedule[x];
@@ -66,9 +79,20 @@ function processSchedule(unparsedSchedule) {
   }
 }
 
+function processSchedule(unparsedSchedule) {
+  schedule = groupByStartDay(unparsedSchedule)
+  var todayIndex = Object.keys(schedule)[0];
+  setScheduleDay(todayIndex);
+}
+
 function getSchedule() {
   var header = getHeader();
   header.innerText = "Loading...";
+
+  var container = getContainer();
+  container.innerHTML = "";
+
+  var nav = getNav();
 
   var request = new XMLHttpRequest();
   var extra = "?start=" + String(Math.floor(getStartTime()/1000)) + "&end=" + String(Math.floor(getEndTime()/1000));
