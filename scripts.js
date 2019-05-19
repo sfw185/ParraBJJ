@@ -58,6 +58,16 @@ function getNav() {
   return getSoleElementByTagName('nav');
 }
 
+function createEntryForClass(someClass) {
+  var startTime = formatDate(new Date(someClass.start));
+  var p = document.createElement('p');
+  p.innerHTML = [
+    '<strong>' + startTime + '</strong>' + ' - ' + '<small>' + someClass.instructor_name.split(' ')[0] + '</small>',
+    '<strong><em>' + someClass.title.replace('-B', ' - B') + '</em></strong>'
+  ].join('<br/>');
+  return p;
+}
+
 function setScheduleDay(dayIndex) {
   var header = getHeader()
   header.innerText = dayIndex;
@@ -69,12 +79,7 @@ function setScheduleDay(dayIndex) {
 
   for (var x = 0; x < todaySchedule.length; x++) {
     var someClass = todaySchedule[x];
-    var startTime = formatDate(new Date(someClass.start));
-    var p = document.createElement('p');
-    p.innerHTML = [
-      '<strong>' + startTime + '</strong>' + ' - ' + '<small>' + someClass.instructor_name.split(' ')[0] + '</small>',
-      '<strong><em>' + someClass.title.replace('-B', ' - B') + '</em></strong>'
-    ].join('<br/>');
+    var p = createEntryForClass(someClass);
     div.appendChild(p);
   }
 }
@@ -91,8 +96,6 @@ function getSchedule() {
 
   var container = getContainer();
   container.innerHTML = "";
-
-  var nav = getNav();
 
   var request = new XMLHttpRequest();
   var extra = "?start=" + String(Math.floor(getStartTime()/1000)) + "&end=" + String(Math.floor(getEndTime()/1000));
