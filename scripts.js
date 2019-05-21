@@ -58,7 +58,28 @@ function getNav() {
   return getSoleElementByTagName('nav');
 }
 
-function createEntryForClass(someClass) {
+function clearContents(node) {
+  node.innerHTML = "";
+}
+
+function drawMenu(dayIndex) {
+  var nav = getNav();
+  clearContents(nav);
+
+  var dayArray = Object.keys(schedule);
+  for (var x = 0; x < dayArray.length; x++) {
+    var dayName = dayArray[x];
+    var a = document.createElement('a');
+    a.setAttribute('onclick', 'setScheduleDay("' + dayName + '")');
+    a.innerText = dayName[0];
+    if (dayName == dayIndex) {
+      a.setAttribute('class', 'active');
+    }
+    nav.appendChild(a);
+  }
+}
+
+function createClassNode(someClass) {
   var startTime = formatDate(new Date(someClass.start));
   var p = document.createElement('p');
   p.innerHTML = [
@@ -73,13 +94,15 @@ function setScheduleDay(dayIndex) {
   header.innerText = dayIndex;
 
   var div = getContainer()
-  div.innerHTML = "";
+  clearContents(div);
+
+  drawMenu(dayIndex);
 
   var todaySchedule = schedule[dayIndex];
 
   for (var x = 0; x < todaySchedule.length; x++) {
     var someClass = todaySchedule[x];
-    var p = createEntryForClass(someClass);
+    var p = createClassNode(someClass);
     div.appendChild(p);
   }
 }

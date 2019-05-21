@@ -41,6 +41,11 @@ nav a {
   border: 5px solid #091353;
 }
 
+nav a.active {
+  color:#FFF;
+  background: #091353;
+}
+
 h1 {
   color: #FFF;
   font-size: 350%;
