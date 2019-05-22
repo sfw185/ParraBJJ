@@ -1,4 +1,4 @@
-var dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var dateOptions = { weekday: 'long' };
 
 var schedule = {
   Monday:  [],
