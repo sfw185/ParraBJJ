@@ -84,7 +84,8 @@ function createClassNode(someClass) {
   var p = document.createElement('p');
   p.innerHTML = [
     '<strong>' + startTime + '</strong>' + ' - ' + '<small>' + someClass.instructor_name.split(' ')[0] + '</small>',
-    '<strong><em>' + someClass.title.replace('-B', ' - B') + '</em></strong>'
+    '<strong><em>' + someClass.title.replace('-B', ' - B') + '</em></strong>',
+    '<small>' + (someClass.description || '') + '</small>'
   ].join('<br/>');
   return p;
 }
