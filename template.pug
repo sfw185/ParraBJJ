@@ -10,29 +10,32 @@ html
     link(rel='stylesheet' href='styles.css')
     script.
       function setScheduleDay(dayIndex) {
-        var tags = document.getElementsByTagName('a');
+        var menu = document.getElementsByTagName('nav')[0];
+        var tags = menu.getElementsByTagName('a');
         for (var i = 0; i < tags.length; i++) {
           var tag = tags[i];
-          if (tag.id == dayIndex + '-link') {
+          var divId = tag.id.replace('-link', '');
+
+          if (tag.id == dayIndex.toLowerCase() + '-link') {
             tag.className = 'active';
-            document.getElementById(dayIndex).style.display = 'block';
+            document.getElementsByTagName('h1')[0].innerText = dayIndex;
+            document.getElementById(divId).style.display = 'block';
           } else {
             tag.className = '';
-            document.getElementById(dayIndex).style.display = 'none';
+            document.getElementById(divId).style.display = 'none';
           }
         }
       }
-  body
+  body(onload='setScheduleDay(\'' + Object.keys(data)[0] + '\');')
     a(href='/')
       img(src='images/icons/icon-512x512.png' alt='Gracie Parramatta')
     nav
-      - startDay = Object.keys(data)[0]
       each schedule, dayName in data
-        a(id=dayName.toLowerCase() + '-link' onclick='setScheduleDay(\'' + dayName.toLowerCase() + '\');' class=`${dayName === startDay ? 'active' : '' }`)
+        a(id=dayName.toLowerCase() + '-link' onclick='setScheduleDay(\'' + dayName + '\');')
           = dayName[0]
-    h1= startDay
+    h1
     for schedule, dayName in data
-      div(id=`#${dayName.toLowerCase()}`)
+      div(id=dayName.toLowerCase() style='display:none')
         for someClass in schedule
           p
             strong= someClass.start + ' - '

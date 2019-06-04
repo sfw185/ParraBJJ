@@ -1,6 +1,7 @@
 const fs = require('fs');
 const pug = require('pug');
 const axios = require('axios');
+const AWS = require('aws-sdk');
 
 const template = pug.compileFile('template.pug');
 const { groupByStartDay } = require('./schedule.js');
@@ -15,10 +16,19 @@ const doTheThing = async () => {
 
   const html = template({ data: grouped, pretty: true });
   fs.writeFile('public/index.html', html, () => {
-    console.log('Done');
+    var s3 = new AWS.S3();
+    var params = {
+      Body: Buffer.from(html, 'utf8'),
+      ContentType: 'text/html',
+      Bucket: process.env.S3_BUCKET || 'dev.gracieparra.com',
+      Key: 'index.html',
+     };
+
+     s3.putObject(params, function(err, data) {
+       if (err) console.log(err, err.stack); // an error occurred
+       else console.log(data);           // successful response
+     });
   });
 };
 
-exports.handler = doTheThing
-
-doTheThing();
+exports.handler = doTheThing;
