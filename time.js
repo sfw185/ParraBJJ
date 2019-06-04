@@ -1,14 +1,11 @@
+const moment = require("moment-timezone");
+
 const getStartTime = () => {
-  var start = new Date();
-  start.setHours(0,0,0,0);
-  return start.getTime() / 1000;
+  return moment().tz('Australia/Sydney').startOf('day').unix();
 };
 
 const getEndTime = () => {
-  var date = new Date();
-  date.setHours(0,0,0,0);
-  date.setDate(date.getDate() + 6)
-  return date.getTime() / 1000;
+  return moment().tz('Australia/Sydney').startOf('day').add(6, 'days').unix();
 };
 
 const processSchedule = (unparsedSchedule) => {
