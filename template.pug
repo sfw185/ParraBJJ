@@ -28,7 +28,7 @@ html
       }
   body(onload='setScheduleDay(\'' + Object.keys(data)[0] + '\');')
     a(href='/')
-      img(src='images/icons/icon-512x512.png' alt='Gracie Parramatta')
+      img(src='images/icons/icon-192x192.png' alt='Gracie Parramatta')
     nav
       each schedule, dayName in data
         a(id=dayName.toLowerCase() + '-link' onclick='setScheduleDay(\'' + dayName + '\');')
