@@ -38,8 +38,8 @@ html
       div(id=dayName.toLowerCase() style='display:none')
         for someClass in schedule
           p
-            strong= someClass.start + ' - '
-              small= someClass.instructor_name.split(' ')[0]
+            strong
+              small= [someClass.start, someClass.instructor_name.split(' ')[0]].join(' - ')
             br
             strong
               em= someClass.title.replace('-B', ' - B')
