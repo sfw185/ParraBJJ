@@ -39,7 +39,7 @@ html
         for someClass in schedule
           p
             strong
-              small= [someClass.start, someClass.instructor_name.split(' ')[0]].join(' - ')
+              small= [someClass.start, someClass.end, someClass.instructor_name.split(' ')[0]].join(' - ')
             br
             strong
               em= someClass.title.replace('-B', ' - B')
