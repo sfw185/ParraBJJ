@@ -11,8 +11,7 @@ const handler = async () => {
   const html = template({ data, pretty: true });
   console.log({ html });
 
-  const result = await storeHTML(html);
-  console.log({ result });
+  return storeHTML(html);
 };
 
 module.exports = { handler };

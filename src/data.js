@@ -1,3 +1,4 @@
+const { promises: { writeFile } } = require('fs');
 const axios = require('axios');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3({ region: 'us-west-2' });
@@ -19,12 +20,21 @@ const getScheduleData = async() => {
   return groupByStartDay(data);
 }
 
-const storeHTML = async (html) => await s3.putObject({
+const getS3BucketName = () => process.env.S3_BUCKET && (process.env.S3_BUCKET).length > 0 ? process.env.S3_BUCKET : null;
+
+const storeLocal = async (html) => writeFile('./public/index.html', html);
+
+const storeRemote = async (html) => await s3.putObject({
   Body: Buffer.from(html, 'utf8'),
   ContentType: 'text/html',
-  Bucket: process.env.S3_BUCKET || 'dev.gracieparra.com',
+  Bucket: getS3BucketName(),
   Key: 'index.html'
 }).promise();
+
+const storeHTML = async (html) => {
+  console.log({ html });
+  return getS3BucketName() ? storeRemote(html) : storeLocal(html);
+};
 
 const fixDateFormat = (someClass) => {
   var date = new Date(someClass["start"]);
