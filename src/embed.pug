@@ -1,0 +1,18 @@
+doctype html
+html
+  head
+    title Grace Parra Timetable
+    link(rel='stylesheet' href='styles.css')
+  body
+    for schedule, dayName in data
+      div(id=dayName.toLowerCase())
+        h1= dayName
+        for someClass in schedule
+          p
+            strong
+              small= [someClass.start, someClass.end, someClass.instructor_name.split(' ')[0]].join(' - ')
+            br
+            strong
+              em= someClass.title
+            br
+            small= someClass.description || ''

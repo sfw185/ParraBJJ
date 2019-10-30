@@ -8,7 +8,7 @@ const scheduleUrl = `https://app.clubworx.com/websites/gracie_parramatta/calenda
 
 const groupByStartDay = (schedule) =>
   schedule.reduce((aggregate, current) => {
-    const startDate = new Date(current["start"]).toLocaleDateString("en-AU", { weekday: 'long' }).split(',')[0];
+    const startDate = new Date(current["start"]).toLocaleDateString("en-AU", { weekday: "long", month: "short", day: "numeric" });
     if (!aggregate[startDate]) { aggregate[startDate] = []; }
     fixDates(current);
     aggregate[startDate].push(current);
@@ -52,4 +52,16 @@ const fixDates = (someClass) => {
   someClass.end = fixDateFormat(someClass.end);
 };
 
-module.exports = { getScheduleData, storeHTML };
+// Polyfill until node.js on Lambda supports Object.fromEntries
+function fromEntries (iterable) {
+  return [...iterable].reduce((obj, [key, val]) => {
+    obj[key] = val
+    return obj
+  }, {})
+}
+
+const sliceObject = (object, startIndex, count) => {
+  return fromEntries(Object.entries(object).slice(startIndex, count));
+};
+
+module.exports = { getScheduleData, storeHTML, sliceObject };
