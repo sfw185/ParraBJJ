@@ -26,16 +26,6 @@ a {
   text-decoration: none;
 }
 
-a#external {
-  display: block;
-  color: #091353;
-  background-color: #FFF;
-  font-size: 250%;
-  text-align:center;
-  height: 75px;
-  line-height: 75px;
-}
-
 nav {
   display: flex;
   margin: 20px, 0;
