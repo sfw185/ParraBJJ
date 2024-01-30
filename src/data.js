@@ -4,7 +4,8 @@ const AWS = require('aws-sdk');
 const s3 = new AWS.S3({ region: 'us-west-2' });
 const { getStartTime: start, getEndTime: end } = require('./time');
 
-const scheduleUrl = `https://app.clubworx.com/websites/gracie_parramatta/calendar/data?start=${start()}&end=${end()}`
+const scheduleUrl = `https://app.clubworx.com/websites/gracie-parramatta/calendar/data?start=${start()}&end=${end()}`
+console.log(`Fetching schedule from ${scheduleUrl}`);
 
 const groupByStartDay = (schedule) =>
   schedule.reduce((aggregate, current) => {
@@ -16,7 +17,7 @@ const groupByStartDay = (schedule) =>
   }, {});
 
 const getScheduleData = async() => {
-  const { data } = await axios.get(scheduleUrl, { headers: { Accept: "*/*" }});
+  const { data } = await axios.get(scheduleUrl, { headers: { Accept: "application/json" }});
   return groupByStartDay(data);
 }
 
