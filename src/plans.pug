@@ -1,0 +1,6 @@
+for plan in data
+  .plan
+    .plan_name= plan.name
+    for priviledge in plan.privileges
+      .plan_priviledge= priviledge
+    p.plan_price= plan.amount + ' ' + plan.duration
