@@ -9,7 +9,7 @@ body {
 }
 
 body {
-  background-color: #091353;
+  background-color: #1914A6;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -36,17 +36,18 @@ nav a {
   padding: 20px;
   font-size: 300%;
   cursor: pointer;
-  color: #091353;
+  color: #1914A6;
   font-weight: bold;
   text-align: center;
   border-radius: 10px;
   background-color: #FFF;
-  border: 5px solid #091353;
+  border: 2px solid #1914A6;
+  transition: all 0.3s ease;
 }
 
 nav a.active {
   color:#FFF;
-  background: #091353;
+  background: #1914A6;
 }
 
 h1 {
@@ -58,12 +59,13 @@ h1 {
 
 p {
   margin: auto;
-  color: #091353;
+  color: #1914A6;
   font-size: 250%;
   text-align: center;
   padding: 10px 20px;
   background-color: #FFF;
-  border-top: 1px solid #091353;
+  border-top: 1px solid #1914A6;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 em {

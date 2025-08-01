@@ -1,12 +1,17 @@
 {
-  "name": "gracie",
+  "name": "parrabjj",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "build": "node scripts/build.js",
+    "dev": "vercel dev"
+  },
   "dependencies": {
-    "aws-sdk": "^2.711.0",
     "axios": "^0.27.2",
-    "cheerio": "^1.0.0",
     "moment-timezone": "^0.5.31",
     "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "vercel": "^32.0.0"
   }
 }

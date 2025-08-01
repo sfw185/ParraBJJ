@@ -1,8 +1,8 @@
 {
-  "name": "Grace Parramatta Timetable",
-  "short_name": "Gracie Parra",
-  "theme_color": "#ffffff",
-  "background_color": "transparent",
+  "name": "Parramatta Jiu-Jitsu Academy",
+  "short_name": "ParraBJJ",
+  "theme_color": "#000000",
+  "background_color": "#ffffff",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/index.html",

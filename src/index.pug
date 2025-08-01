@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Grace Parra Timetable
+    title ParraBJJ Schedule
     link(rel='manifest', href='manifest.json')
     link(rel='apple-touch-icon' href='images/icons/icon-512x512.png')
     link(rel='apple-touch-icon' sizes='152x152' href='images/icons/icon-152x152.png')
@@ -28,7 +28,7 @@ html
       }
   body(onload='setScheduleDay(\'' + Object.keys(data)[0] + '\');')
     a(href='/')
-      img(src='images/icons/icon-192x192.png' alt='Gracie Parramatta')
+      img(src='images/logo-large.png' alt='Parramatta Jiu-Jitsu Academy')
     nav
       each schedule, dayName in data
         a(id=dayName.toLowerCase() + '-link' onclick='setScheduleDay(\'' + dayName + '\');')
