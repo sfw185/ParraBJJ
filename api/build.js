@@ -4,8 +4,8 @@ const path = require('path');
 
 const { getScheduleData, sliceObject } = require('../src/data');
 
-const indexTemplate = pug.compileFile('./src/index.pug');
-const embedTemplate = pug.compileFile('./src/embed.pug');
+const indexTemplate = pug.compileFile(path.join(process.cwd(), 'src/index.pug'));
+const embedTemplate = pug.compileFile(path.join(process.cwd(), 'src/embed.pug'));
 
 module.exports = async (req, res) => {
   try {
@@ -13,10 +13,10 @@ module.exports = async (req, res) => {
 
     const oneWeek = sliceObject(scheduleData, 0, 7);
     const index = indexTemplate({ data: oneWeek, pretty: true });
-    await writeFile(path.join('./public', 'index.html'), index, 'utf8');
+    await writeFile(path.join(process.cwd(), 'public', 'index.html'), index, 'utf8');
 
     const embed = embedTemplate({ data: scheduleData, pretty: true });
-    await writeFile(path.join('./public', 'embed.html'), embed, 'utf8');
+    await writeFile(path.join(process.cwd(), 'public', 'embed.html'), embed, 'utf8');
 
     res.status(200).json({
       message: 'Build completed successfully',
