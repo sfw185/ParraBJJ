@@ -1,15 +1,4 @@
 {
   "buildCommand": "npm run build",
-  "outputDirectory": "public",
-  "functions": {
-    "api/*.js": {
-      "maxDuration": 10
-    }
-  },
-  "crons": [
-    {
-      "path": "/api/build",
-      "schedule": "0 * * * *"
-    }
-  ]
+  "outputDirectory": "public"
 }
