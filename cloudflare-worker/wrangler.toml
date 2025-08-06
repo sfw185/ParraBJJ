@@ -1,0 +1,14 @@
+name = "parrabjj-vercel-deployer"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+# Your Cloudflare account ID
+account_id = "a6ef85552aea674cb71a79c86703b801"
+
+# Cron triggers - every hour at minute 0
+[triggers]
+crons = ["0 * * * *"]
+
+# Environment variables
+[vars]
+VERCEL_DEPLOY_HOOK = "https://api.vercel.com/v1/integrations/deploy/prj_axsYlLJLuvIN1XsLbTAaF24rbhQg/rIC8u7zMih"
