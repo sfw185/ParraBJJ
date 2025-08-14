@@ -20,7 +20,7 @@ const groupByStartDay = (schedule) => {
 
 // Function to fetch schedule data
 const getScheduleData = async () => {
-  const scheduleUrl = `https://app.clubworx.com/websites/gracie-parramatta/calendar/data?start=${start()}&end=${end()}`;
+  const scheduleUrl = `https://app.clubworx.com/websites/pjja/calendar/data?start=${start()}&end=${end()}`;
   console.log(`Fetching schedule from ${scheduleUrl}`);
 
   try {
