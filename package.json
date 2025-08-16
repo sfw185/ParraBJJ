@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "node scripts/build.js",
-    "dev": "vercel dev"
+    "dev": "node dev.js"
   },
   "dependencies": {
     "axios": "^0.30.0",

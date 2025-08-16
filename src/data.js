@@ -1,4 +1,6 @@
 const axios = require('axios');
+const { promises: { writeFile, mkdir } } = require('fs');
+const path = require('path');
 const { getStartTime: start, getEndTime: end } = require('./time');
 
 // Function to group schedule by start day
@@ -54,5 +56,11 @@ const sliceObject = (object, startIndex, count) => {
   return Object.fromEntries(Object.entries(object).slice(startIndex, startIndex + count));
 };
 
+// Function to store HTML to file
+const storeHTML = async (html, filename) => {
+  await mkdir('./public', { recursive: true });
+  await writeFile(path.join('./public', filename), html, 'utf8');
+};
+
 // Export necessary functions
-module.exports = { getScheduleData, sliceObject };
+module.exports = { getScheduleData, sliceObject, storeHTML };
