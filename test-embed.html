@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ParraBJJ Schedule Embed Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        #scheduleContainer {
+            border: 2px solid #ddd;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 200px;
+            background-color: #f9f9f9;
+        }
+        .loading {
+            color: #666;
+            font-style: italic;
+        }
+        .error {
+            color: #d32f2f;
+            background-color: #ffebee;
+            padding: 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>ParraBJJ Schedule Embed Test</h1>
+    <p>Testing CORS configuration for embedding schedule from https://parrabjj.com/embed.html</p>
+    
+    <div id="scheduleContainer">
+        <p class="loading">Loading schedule...</p>
+    </div>
+
+    <script>
+        async function loadHTMLIntoDiv(divId, url = 'https://parrabjj.com/embed.html') {
+            try {
+                // Get the target div element
+                const targetDiv = document.getElementById(divId);
+                
+                if (!targetDiv) {
+                    throw new Error(`Element with ID '${divId}' not found`);
+                }
+                
+                // Fetch the HTML content
+                const response = await fetch(url);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Get the HTML text
+                const htmlContent = await response.text();
+                
+                // Insert the HTML into the target div
+                targetDiv.innerHTML = htmlContent;
+                
+                console.log('HTML loaded successfully');
+                
+            } catch (error) {
+                console.error('Error loading HTML:', error);
+                
+                // Display error message in the div
+                const targetDiv = document.getElementById(divId);
+                if (targetDiv) {
+                    targetDiv.innerHTML = `<div class="error">
+                        <strong>Error loading content:</strong> ${error.message}
+                        <br><br>
+                        <em>Note: If this is a CORS error, the server needs to be configured to allow cross-origin requests.</em>
+                    </div>`;
+                }
+            }
+        }
+
+        // Load the schedule when the page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            loadHTMLIntoDiv('scheduleContainer');
+        });
+    </script>
+</body>
+</html>
