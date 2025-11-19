@@ -12,3 +12,11 @@ crons = ["0 * * * *"]
 # Environment variables
 [vars]
 VERCEL_DEPLOY_HOOK = "https://api.vercel.com/v1/integrations/deploy/prj_axsYlLJLuvIN1XsLbTAaF24rbhQg/rIC8u7zMih"
+
+# Logging
+[observability]
+[observability.logs]
+enabled = true
+head_sampling_rate = 1
+invocation_logs = true
+persist = true
