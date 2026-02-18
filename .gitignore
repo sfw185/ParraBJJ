@@ -4,7 +4,6 @@ node_modules
 /public/*.html
 .env
 .env.local
-.vercel
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
