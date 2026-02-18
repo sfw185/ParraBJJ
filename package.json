@@ -7,7 +7,7 @@
     "dev": "node dev.js"
   },
   "dependencies": {
-    "axios": "^0.30.2",
+    "axios": "^1.13.5",
     "moment-timezone": "^0.5.31",
     "pug": "^3.0.0"
   }
