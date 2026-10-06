@@ -15,6 +15,7 @@ const groupByStartDay = (schedule) => {
       aggregate[startDate] = [];
     }
     fixDates(current);
+    fixInstructors(current);
     aggregate[startDate].push(current);
     return aggregate;
   }, {});
@@ -49,6 +50,20 @@ const fixDateFormat = (rawDate) => {
 const fixDates = (someClass) => {
   someClass.start = fixDateFormat(someClass.start);
   someClass.end = fixDateFormat(someClass.end);
+};
+
+// Instructor entries that are the academy itself rather than a person
+const nonPersonInstructor = /academy|jiu jitsu/i;
+
+// Function to reduce instructor names to first names,
+// e.g. "Jairson Rosa and Tommy Fletcher" -> "Jairson & Tommy"
+const fixInstructors = (someClass) => {
+  const firstNames = (someClass.instructor_names || '')
+    .split(/,\s*and\s+|,\s*|\s+and\s+/)
+    .map(name => name.trim())
+    .filter(name => name && !nonPersonInstructor.test(name))
+    .map(name => name.split(' ')[0]);
+  someClass.instructors = [...new Set(firstNames)].join(' & ');
 };
 
 // Function to slice an object based on start index and count

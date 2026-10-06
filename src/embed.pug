@@ -4,7 +4,7 @@ for schedule, dayName in data
     for someClass in schedule
       p
         strong
-          small= someClass.instructor_name ? [someClass.start, someClass.end, someClass.instructor_name.split(' ')[0]].join(' - ') : [someClass.start, someClass.end].join(' - ')
+          small= [someClass.start, someClass.end, someClass.instructors].filter(Boolean).join(' - ')
         br
         strong
           em= someClass.title
